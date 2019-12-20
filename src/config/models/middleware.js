@@ -14,7 +14,7 @@ const requireAdmin = () => {
                 }
 
                 if (user.role == "admin") {
-                    return res.redirect('/users/register')
+                    return res.redirect('/admin')
                 }
 
                 next()
@@ -30,7 +30,7 @@ const requireAdmin = () => {
                 }
 
                 if (user.role == "admin") {
-                    return res.redirect('/users/register')
+                    return res.redirect('/admin')
                 }
 
                 next()

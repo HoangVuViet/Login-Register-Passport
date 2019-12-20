@@ -11,6 +11,7 @@ router.get('/', (req, res) => res.render('login'))
 router.get('/dashboard', ensureAuthenticated, (req, res) => res.render('dashboard', {
     name: req.user.name
 }))
+router.get('/admin', (req, res) => res.render('adminpage'))
 router.get('/profile/:id', (req, res) => {
     res.send('Id is' + req.params.id)
 })
