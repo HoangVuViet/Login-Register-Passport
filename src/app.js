@@ -5,6 +5,8 @@ require('./db/mongoose')
 const expressLayouts = require('express-ejs-layouts')
 const path = require('path')
 const passport = require('passport')
+const cookieparser = require('cookie-parser')
+const bodyparser = require('body-parser')
     // Passport Config
 require('./config/passport')(passport)
     // Define paths for Express config
@@ -20,20 +22,29 @@ app.use(express.static(publicDirectoryPath))
 app.set('view engine', 'ejs')
     // app.use(expressLayouts)
 app.set('views', viewsPath)
-    //  Express session
+
+//  Express session
+app.use(cookieparser())
+app.use(bodyparser())
 app.use(
     session({
         secret: 'secret',
         resave: true,
-        saveUninitialized: true
+        saveUninitialized: true,
+        cookie: {
+            secure: false
+        }
     })
 )
 
 // Passport middleware
 app.use(passport.initialize())
 app.use(passport.session())
-
-// Connect flash
+app.use(function(req, res, next) {
+        res.locals.user = req.user || null
+        next()
+    })
+    // Connect flash
 app.use(flash())
 
 // Global variables

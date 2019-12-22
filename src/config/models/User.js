@@ -30,4 +30,9 @@ const UserSchema = new mongoose.Schema({
     }
 })
 const User = mongoose.model('User', UserSchema)
+    // User.findOne({ email: '17020772@vnu.edu.vn' })
+    //     .then(user => {
+    //         if (user) console.log(user)
+    //         console.log(123)
+    //     }).catch(err => console.log(err))
 module.exports = User

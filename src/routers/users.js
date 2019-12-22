@@ -5,20 +5,15 @@ const bcrypt = require('bcryptjs')
 const request = require('request')
 const { ensureAuthenticated, forwardAuthenticated } = require('../config/models/auth')
 const User = require('../config/models/User')
-const isAdmin = require('../config/models/middleware')
+const { isAdmin } = require('../config/models/middleware')
 router.get('/login', forwardAuthenticated, (req, res) => res.render('login'))
 
 // Register Page
 router.get('/register', forwardAuthenticated, (req, res) => res.render('register'))
     // Forgot Password Page
 router.get('/forgotpassword', forwardAuthenticated, (req, res) => res.render('forgotpass'))
-    // Logout
-router.get('/logout', (req, res) => {
-        req.logout()
-        req.flash('success_msg', 'You are logged out')
-        res.redirect('/users/login')
-    })
-    // Resgister Handle
+
+// Resgister Handle
 router.post('/register', (req, res) => {
         const { name, email, studentID, password, password2 } = req.body
         var errors = []
@@ -125,8 +120,22 @@ router.post('/forgotpassword', (req, res) => {
 
     })
     // Login Handle
-router.post('/login', isAdmin(), passport.authenticate('local', { successRedirect: '/dashboard', failureRedirect: '/users/login', failureFlash: true }), (req, res, next) => {
-    (req, res, next)
+router.post(
+        '/login',
+        passport.authenticate('local', {
+            failureRedirect: '/login'
+        }), (req, res) => {
+            if (req.user.role === 'admin') {
+                res.redirect('/admin')
+            }
+            if (req.user.role === 'user') {
+                res.redirect('/dashboard')
+            }
+        })
+    // Logout
+router.get('/logout', (req, res) => {
+    req.logout()
+    req.flash('success_msg', 'You are logged out')
+    res.redirect('/users/login')
 })
-
 module.exports = router

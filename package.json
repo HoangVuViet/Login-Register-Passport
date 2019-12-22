@@ -5,8 +5,10 @@
     "main": "app.js",
     "dependencies": {
         "bcryptjs": "^2.4.3",
+        "body-parser": "^1.19.0",
         "connect-flash": "^0.1.1",
         "consolidate": "^0.15.1",
+        "cookie-parser": "^1.4.4",
         "dependencies": "0.0.1",
         "ejs": "^2.7.4",
         "express": "^4.17.1",

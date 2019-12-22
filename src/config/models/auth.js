@@ -18,11 +18,9 @@ module.exports = {
                 } else if (user.role = "user") {
                     return next();
                 } else {
-                    res.redirect("/users/register")
+                    return res.redirect("/admin")
                 }
             })
-        } else {
-            res.redirect("/dashboard")
         }
     }
 }
