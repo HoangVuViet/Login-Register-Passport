@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-
+var passportLocalMongoose = require("passport-local-mongoose")
 const UserSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -27,12 +27,11 @@ const UserSchema = new mongoose.Schema({
         type: 'String',
         default: 'user',
         enum: ['user', 'admin']
-    }
+    },
+    resetPasswordToken: String,
+    resetPasswordExpires: Date
 })
+UserSchema.plugin(passportLocalMongoose)
 const User = mongoose.model('User', UserSchema)
-    // User.findOne({ email: '17020772@vnu.edu.vn' })
-    //     .then(user => {
-    //         if (user) console.log(user)
-    //         console.log(123)
-    //     }).catch(err => console.log(err))
+
 module.exports = User
