@@ -158,7 +158,7 @@ router.post('/forgotpassword', (req, res, next) => {
                             'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
                             'http://' + req.headers.host + '/users/reset/' + token + '\n\n' +
                             'If you did not request this, please ignore this email and your password will remain unchanged.\n'
-                    };
+                    }
                     smtpTransport.sendMail(mailOptions, function(err) {
                         console.log('mail sent')
                         req.flash('success', 'An e-mail has been sent to ' + user.email + ' with further instructions.')

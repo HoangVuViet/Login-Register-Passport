@@ -57,7 +57,9 @@ app.use(function(req, res, next) {
     //Routers
 app.use('/', require('./routers/index'))
 app.use('/users', require('./routers/users'))
-
+app.use('*', function(req, res) {
+    res.status(404).render('404pages')
+})
 app.listen(port, () => {
     console.log(`Server is on localhost: ${port}`)
 })
